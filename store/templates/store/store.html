@@ -7,13 +7,39 @@
         <img class="thumbnail" src="{{product.image.url}}">
 		<div class="box-element product">
             <h6><strong>{{product.name}}</strong></h6>
+            <h7>{{product.quantity}} left</h7>
+            <!-- <h7 class="hidden" id="out-of-stock">Notify When Available</h7> -->
+            <div id="content"></div>
             <hr>
-            <button data-product={{product.id}} data-action="add"class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <button id="ATC" data-product={{product.id}} data-action="add"class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <button id="Remind" class="btn btn-outline-secondary add-btn update-cart hidden">Notify Me When Available</button>
             <!-- <a class="btn btn-outline-success" href="#">View</a> -->
-            <h4 style="display: inline-block; float: right">${{product.price|floatformat:2}}</h4>
+            <h4 id="price" style="display: inline-block; float: right">${{product.price|floatformat:2}}</h4>
 		</div>
 	</div>
 
     {% endfor %}
 </div>
+
+<script type="text/javascript">
+    // var quantity = '{{product.quantity}}'
+
+    // if (quantity == '0') {
+    //     // document.getElementById('out-of-stock').classList.remove('hidden')
+    //     document.getElementById('out-of-stock').innerHTML = ''
+    //     console.log('Quantity is 0 wow')
+    // } 
+    {% for product in products %}
+    var quantity = '{{product.quantity}}'    
+    if (quantity == '0') {
+        // document.getElementById("content").innerHTML = "Out of Stock.";
+        document.getElementById('ATC').classList.add('hidden');
+        document.getElementById('Remind').classList.remove('hidden');
+    }
+    {% endfor %}
+
+    document.getElementById('Remind').addEventListener('click', function (e) {
+        alert('Thank you for signing up to the waitlist. You will be reminded once this product goes back in stock! -iVap');
+    })
+</script>
 {% endblock content %}
