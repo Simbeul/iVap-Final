@@ -71,7 +71,9 @@ def updateItem(request):
     if action == 'add':
         orderItem.quantity = (orderItem.quantity + 1)
     elif action == 'remove':
-        orderItem.quantity = (orderItem.quantity - 1) 
+        orderItem.quantity = (orderItem.quantity - 1)
+    elif action == 'delete':
+        orderItem.quantity = 0
 
     orderItem.save()
 
@@ -83,32 +85,29 @@ def updateItem(request):
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
+    customer = request.user.customer
+    order, created = Order.objects.get_or_create(
+        customer=customer, complete=False
+    )
+    total = float(data['form']['total'])
+    order.transaction_id = transaction_id
 
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        total = float(data['form']['total'])
-        order.transaction_id = transaction_id
+    if total == float(order.get_cart_total):
+        order.complete = True
+        print("Order set to complete!!!!")
 
-        if total == float(order.get_cart_total):
-            order.complete = True
-        order.save()
+    if order.shipping:
+        ShippingAddress.objects.create(
+            customer=customer,
+            order=order,
+            address=data['shipping']['address'],
+            city=data['shipping']['city'],
+            state=data['shipping']['state'],
+            zipcode=data['shipping']['zipcode'],
+        )
+        order.pickup_type = data['pickup']['pickup_type']
+        order.pickup_time = data['pickup']['pickup_time']
 
-        if order.shipping == True:
-            ShippingAddress.objects.create(
-                customer=customer,
-                order=order,
-                address=data['shipping']['address'],
-                city=data['shipping']['city'],
-                state=data['shipping']['state'],
-                zipcode=data['shipping']['zipcode'],
-            )
-            
-            Order.objects.create(
-                pickup_type=data['pickup']['pickup_type'],
-                pickup_time=data['pickup']['pickup_time'],
-            )
+    order.save()
 
-    else:
-        print("user is not logged in")
-    return JsonResponse('Order Processed', safe=False)
+    return JsonResponse({'status': 'Order Processed'})

@@ -1,45 +1,87 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div id="modalheader" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Are you of legal smoking age?</h5>
+            </div>
+            <div id="modalbody" class="modal-body">
+                <p>By entering this website, you certify that you are of legal smoking age in the state in which you
+                    reside.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">YES</button>
+                <button id="notage" type="button" class="btn btn-secondary">NO</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+    <h1 class="jumbotext">iVap</h1>
+    <h3 class="jumbotext">Montreal's Best Pro Vape Shop</h3>
+</div>
+
+
 <div class="row">
+
     {% for product in products %}
-	<div class="col-lg-4">
+    <div class="col-lg-4">
         <img class="thumbnail" src="{{product.image.url}}">
-		<div class="box-element product">
+        <div class="box-element product">
             <h6><strong>{{product.name}}</strong></h6>
             <h7>{{product.quantity}} left</h7>
             <!-- <h7 class="hidden" id="out-of-stock">Notify When Available</h7> -->
             <div id="content"></div>
             <hr>
-            <button id="ATC" data-product={{product.id}} data-action="add"class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-            <button id="Remind" class="btn btn-outline-secondary add-btn update-cart hidden">Notify Me When Available</button>
+            <button id="ATC" data-product={{product.id}} data-action="add"
+                class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <button id="Remind" class="btn btn-outline-secondary add-btn update-cart hidden">Notify Me When
+                Available</button>
             <!-- <a class="btn btn-outline-success" href="#">View</a> -->
             <h4 id="price" style="display: inline-block; float: right">${{product.price|floatformat:2}}</h4>
-		</div>
-	</div>
+        </div>
+    </div>
 
     {% endfor %}
 </div>
 
 <script type="text/javascript">
-    // var quantity = '{{product.quantity}}'
 
-    // if (quantity == '0') {
-    //     // document.getElementById('out-of-stock').classList.remove('hidden')
-    //     document.getElementById('out-of-stock').innerHTML = ''
-    //     console.log('Quantity is 0 wow')
-    // } 
     {% for product in products %}
-    var quantity = '{{product.quantity}}'    
+    var quantity = '{{product.quantity}}'
     if (quantity == '0') {
-        // document.getElementById("content").innerHTML = "Out of Stock.";
         document.getElementById('ATC').classList.add('hidden');
         document.getElementById('Remind').classList.remove('hidden');
     }
     {% endfor %}
 
+    // for (product in products) {
+    //     var quantity = '{{product.quantity}}'
+    //     if (quantity == '0') {
+    //         document.getElementById('ATC').classList.add('hidden');
+    //         document.getElementById('Remind').classList.remove('hidden');
+    //     }
+    // }
+
     document.getElementById('Remind').addEventListener('click', function (e) {
         alert('Thank you for signing up to the waitlist. You will be reminded once this product goes back in stock! -iVap');
     })
+
+    document.getElementById('notage').addEventListener('click', function (e) {
+        document.getElementById('exampleModalLongTitle').innerHTML = 'You are not old enough to view this content';
+        document.getElementById('modalbody').innerHTML = 'Sorry! This site is reserved for 18 yr old + users.';
+    })
+
+
 </script>
+
+
 {% endblock content %}

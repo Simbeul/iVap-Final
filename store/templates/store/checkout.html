@@ -41,29 +41,24 @@
                     
                     <div class="form-field">
                         <label for="pickup_time">Date and Time of Pick-Up</label>
-                        <input type="datetime-local" id="pickup_time" name="pickup_time">
+                        <input required class="form-control" type="datetime-local" id="pickup_time" name="pickup_time" min="08:00:00" max="18:00:00">
                     </div><br><br>
                     <div class="form-field">
                         <label for="pickup_type">Pick-Up Method</label><br>
-                        <input type="radio" id="in-store" name="pickup_type" value="in-store">
+                        <input required type="radio" id="in-store" name="pickup_type" value="in-store">
                         <label for="in-store">In-store</label>
-                        <input type="radio" id="curbside" name="pickup_type" value="curbside">
+                        <input required type="radio" id="curbside" name="pickup_type" value="curbside">
                         <label for="curbside">Curbside</label>
                     </div>
                     <br>
                 </div>
 
                 <hr>
-                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                <input id="make-payment" class="btn btn-success btn-block" type="submit" value="Process Order">
 
             </form>
         </div>
-        <br>
-        <div class="box-element hidden" id="payment-info">
-            <small>Finalize Order: </small>
-            <button id="make-payment">Process Order</button>
-
-        </div>
+    
     </div>
 
     <div class="col-lg-6">
@@ -106,8 +101,6 @@
     form.addEventListener('submit', function (e) {
         e.preventDefault()
         console.log('form submitte...')
-        document.getElementById('form-button').classList.add('hidden')
-        document.getElementById('payment-info').classList.remove('hidden')
     })
 
     document.getElementById('make-payment').addEventListener('click', function (e) {
@@ -153,6 +146,8 @@
             userFormData.name = form.name.value
             userFormData.email = form.email.value
         }
+
+        console.log('Pickup Info:', pickupInfo)
 
         var url = '/process_order/'
         fetch(url, {

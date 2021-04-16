@@ -33,11 +33,13 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
-    transaction_id = models.CharField(max_length=200, null=True)
+    transaction_id = models.CharField(max_length=100, null=True)
 
-    CHOICES = (('1','In-Store'),('2','Curbside'))
-    pickup_type = models.CharField(max_length=1, choices=CHOICES)
-    pickup_time = models.DateTimeField(auto_now=False, null=True)
+    CHOICES = (('in-store','in-store'),
+        ('curbside','curbside'))
+
+    pickup_type = models.CharField(max_length=10, choices=CHOICES)
+    pickup_time = models.DateTimeField(null=True, blank=False)
 
     def __str__(self):
         return str(self.id)
