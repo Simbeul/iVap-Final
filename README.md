@@ -1,6 +1,6 @@
 # iVap Ecommerce Site - BTM495 W21 Final Project
 
-Hello Professor, and welcome to our final project for BTM495. 
+Hello and welcome to our final project for BTM495. 
 
 This project was built on **Python, Django, HTML, CSS & Javascript**. It also utilizes Bootsrap for the front end. The database is Sqlite3.
 
