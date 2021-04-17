@@ -24,6 +24,26 @@
     </div>
 </div>
 
+<div id="ageModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div id="modalheader" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">This product is Out of Stock</h5>
+            </div>
+            <div id="modalbody" class="modal-body">
+                <p>Enter your email to be reminded whenever this product goes back in stock.</p>
+            </div>
+            <div class="modal-footer">
+                <input required class="form-control" type="text" name="remindemail" placeholder="Enter your email...">
+                <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Submit</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div class="jumbotron text-center" style="margin-bottom:0">
     <h1 class="jumbotext">iVap</h1>
     <h3 class="jumbotext">Montreal's Best Pro Vape Shop</h3>
@@ -71,7 +91,8 @@
     // }
 
     document.getElementById('Remind').addEventListener('click', function (e) {
-        alert('Thank you for signing up to the waitlist. You will be reminded once this product goes back in stock! -iVap');
+        // alert('Thank you for signing up to the waitlist. You will be reminded once this product goes back in stock! -iVap');
+        $('#ageModal').modal('toggle')
     })
 
     document.getElementById('notage').addEventListener('click', function (e) {
