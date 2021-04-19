@@ -93,7 +93,7 @@ class ShippingAddress(models.Model):
 class ReminderEmail(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    email = models.CharField(max_length=200, null=True)
+    remindemail = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.email

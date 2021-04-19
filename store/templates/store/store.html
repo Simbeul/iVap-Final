@@ -5,7 +5,6 @@
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div id="modalheader" class="modal-header">
@@ -26,21 +25,27 @@
 
 <div id="stockModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
-
         <!-- Modal content-->
         <div class="modal-content">
-            <div id="modalheader" class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">This product is Out of Stock</h5>
-            </div>
-            <div id="modalbody" class="modal-body">
-                <p>Enter your email to be reminded whenever this product goes back in stock.</p>
-            </div>
-            <div class="modal-footer">
-                <input required class="form-control" type="text" name="remindemail" placeholder="Enter your email...">
-                <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Submit</button>
-            </div>
-        </div>
+            <form>
+                <div id="modalheader" class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">This product is Out of Stock</h5>
+                </div>
+                <div id="modalbody" class="modal-body">
+                    <p>Enter your email to be reminded whenever this product goes back in stock.</p>
+                </div>
+                <div class="modal-footer"> 
 
+                    <!-- <input required class="form-control" type="text" name="name" placeholder="Name.."> -->
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input id="submitEmail" class="btn btn-success btn-block" type="submit" value="Submit Email">
+
+                </div>
+
+            </form>
+
+        </div>
     </div>
 </div>
 
@@ -62,13 +67,13 @@
             <hr>
             <button id="ATC" data-product={{product.id}} data-action="add"
                 class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-            <button id="Remind" class="btn btn-outline-secondary add-btn update-cart hidden">Notify Me When
+            <button id="Remind" data-product={{product.id}} class="btn btn-outline-secondary add-btn hidden">Notify Me
+                When
                 Available</button>
             <!-- <a class="btn btn-outline-success" href="#">View</a> -->
             <h4 id="price" style="display: inline-block; float: right">${{product.price|floatformat:2}}</h4>
         </div>
     </div>
-
     {% endfor %}
 </div>
 

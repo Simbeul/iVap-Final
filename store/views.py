@@ -5,6 +5,7 @@ import json
 import datetime
 
 from .models import *
+from .forms import *
 
 # Create your views here.
 
@@ -111,3 +112,14 @@ def processOrder(request):
     order.save()
 
     return JsonResponse({'status': 'Order Processed'})
+
+def email_remind_view(request):
+    form = EmailForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    
+    context = {
+        'form' : form
+    }
+
+    return render(request, "store.html", context)
