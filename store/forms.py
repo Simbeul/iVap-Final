@@ -6,6 +6,7 @@ from .models import ReminderEmail
 class EmailForm(forms.ModelForm):
     class Meta:
         model = ReminderEmail
-        fields = [
-            'remindemail'
-        ]
+        fields = ('remindemail', 'product')
+        widgets = {
+             'product': forms.HiddenInput()
+        }
