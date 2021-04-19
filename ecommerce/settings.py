@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
-import dj_database_url
-import django_heroku
 
 from pathlib import Path
 
@@ -147,5 +145,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # prod_db  =  dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(prod_db)
 
-
-django_heroku.settings(locals())
