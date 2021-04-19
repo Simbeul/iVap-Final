@@ -10,4 +10,5 @@ urlpatterns = [
     path('process_order/', views.processOrder, name="process_order"),
 
     path('email/', views.email_remind_view, name="email_remind_view"),
+
 ]

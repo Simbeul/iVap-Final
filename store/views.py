@@ -122,4 +122,4 @@ def email_remind_view(request):
         'form' : form
     }
 
-    return render(request, "store.html", context=context)
+    return render(request, "store.html", context)

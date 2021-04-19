@@ -27,7 +27,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <!-- Modal content-->
         <div class="modal-content">
-            <form method="post">
+            <!-- <form method="POST"> -->
                 <div id="modalheader" class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">This product is Out of Stock</h5>
                 </div>
@@ -35,12 +35,14 @@
                     <p>Enter your email to be reminded whenever this product goes back in stock.</p>
                 </div>
                 <div class="modal-footer"> 
-                    <!-- <input required class="form-control" type="text" name="name" placeholder="Name.."> -->
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <input id="submitEmail" class="btn btn-success btn-block" type="submit" value="Submit Email">
+                    <!-- <input required class="form-control" type="text" name="name" placeholder="Email.."> -->
+                    <form method="POST" class="btn-block">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input id="submitEmail" class="btn btn-success btn-block" type="submit" value="Submit Email">
+                    </form>
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
     </div>
 </div>
@@ -49,6 +51,12 @@
     <h1 class="jumbotext">iVap</h1>
     <h3 class="jumbotext">Montreal's Best Pro Vape Shop</h3>
 </div>
+
+<!-- <form method="POST"></form>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input id="submitEmail" type="submit" value="Submit Email">
+</form> -->
 
 <div class="row">
 
