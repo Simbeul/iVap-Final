@@ -27,22 +27,22 @@
     <div class="modal-dialog modal-dialog-centered">
         <!-- Modal content-->
         <div class="modal-content">
-            <!-- <form method="POST"> -->
+            <form id="emailform">
                 <div id="modalheader" class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">This product is Out of Stock</h5>
                 </div>
                 <div id="modalbody" class="modal-body">
                     <p>Enter your email to be reminded whenever this product goes back in stock.</p>
                 </div>
-                <div class="modal-footer"> 
-                    <!-- <input required class="form-control" type="text" name="name" placeholder="Email.."> -->
-                    <form method="POST" class="btn-block">
+                <div class="modal-footer form-field"> 
+                    <input required class="form-control" type="email" name="email" placeholder="Email..">
+                    <!-- <form method="POST" class="btn-block">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <input id="submitEmail" class="btn btn-success btn-block" type="submit" value="Submit Email">
-                    </form>
+                        {{ form.as_p }} -->
+                    <input id="submitEmail" class="btn btn-success btn-block" type="submit" value="Submit Email">
+                    <!-- </form> -->
                 </div>
-            <!-- </form> -->
+            </form>
         </div>
     </div>
 </div>
@@ -99,6 +99,39 @@
         document.getElementById('exampleModalLongTitle').innerHTML = 'You are not old enough to view this content';
         document.getElementById('modalbody').innerHTML = 'Sorry! This site is reserved for 18 yr old + users.';
     })
+
+    var emailform = document.getElementById('form')
+
+    document.getElementById('submitEmail').addEventListener('click', function (e) {
+        submitEmailData()
+    })
+
+    function submitEmailData() {
+
+        var emailInfo = {
+            'email':null,
+        }
+
+        emailInfo.email = emailform.email.value
+
+        console.log("Email info:", emailInfo)
+
+        var url = '/create_email/'
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ 'email': emailInfo})
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                alert('Succes! You will be added to the email reminder list.');
+                window.location.href = "{% url 'store' %}"
+            })
+    }
 
 </script>
 

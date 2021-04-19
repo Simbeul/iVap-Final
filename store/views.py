@@ -113,13 +113,15 @@ def processOrder(request):
 
     return JsonResponse({'status': 'Order Processed'})
 
-def email_remind_view(request):
-    form = EmailForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    
-    context = {
-        'form' : form
-    }
+def create_email(request):
+    data = json.loads(request.body)
+    product = request.user.product
 
-    return render(request, "store.html", context)
+    ReminderEmail.objects.create(
+        product=product,
+        remindemail=data['email']['email'],
+    )
+
+    ReminderEmail.save()
+
+    return JsonResponse({'status': 'Email Processed'})

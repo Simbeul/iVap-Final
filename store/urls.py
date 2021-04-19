@@ -9,6 +9,5 @@ urlpatterns = [
     path('update_item/', views.updateItem, name="update_item"),
     path('process_order/', views.processOrder, name="process_order"),
 
-    path('email/', views.email_remind_view, name="email_remind_view"),
-
+    path('create_email/', views.create_email, name="create_email"),
 ]

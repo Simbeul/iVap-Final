@@ -96,4 +96,4 @@ class ReminderEmail(models.Model):
     remindemail = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.email
+        return self.remindemail
