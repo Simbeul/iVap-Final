@@ -27,7 +27,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <!-- Modal content-->
         <div class="modal-content">
-            <form>
+            <form method="post">
                 <div id="modalheader" class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">This product is Out of Stock</h5>
                 </div>
@@ -35,16 +35,12 @@
                     <p>Enter your email to be reminded whenever this product goes back in stock.</p>
                 </div>
                 <div class="modal-footer"> 
-
                     <!-- <input required class="form-control" type="text" name="name" placeholder="Name.."> -->
                     {% csrf_token %}
                     {{ form.as_p }}
                     <input id="submitEmail" class="btn btn-success btn-block" type="submit" value="Submit Email">
-
                 </div>
-
             </form>
-
         </div>
     </div>
 </div>
@@ -88,9 +84,7 @@
     {% endfor %}
 
     document.getElementById('Remind').addEventListener('click', function (e) {
-        // alert('Thank you for signing up to the waitlist. You will be reminded once this product goes back in stock! -iVap');
         $('#stockModal').modal('toggle')
-        // submitEmail()
     })
 
     document.getElementById('notage').addEventListener('click', function (e) {
