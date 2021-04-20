@@ -98,14 +98,6 @@ def processOrder(request):
         print("Order set to complete!!!!")
 
     if order.shipping:
-        ShippingAddress.objects.create(
-            customer=customer,
-            order=order,
-            address=data['shipping']['address'],
-            city=data['shipping']['city'],
-            state=data['shipping']['state'],
-            zipcode=data['shipping']['zipcode'],
-        )
         order.pickup_type = data['pickup']['pickup_type']
         order.pickup_time = data['pickup']['pickup_time']
 

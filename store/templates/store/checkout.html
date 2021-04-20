@@ -17,25 +17,7 @@
                 </div>
 
                 <div id="shipping-info">
-                    <hr>
-                    <p>Shipping Information:</p>
-                    
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="address" placeholder="Address..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="city" placeholder="City..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="state" placeholder="State..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="country" placeholder="Country..">
-                    </div>
-                    <br>
+                
                     <hr>
                     <p>Order Pickup Information:</p>
                     
@@ -116,15 +98,6 @@
             'total': total,
         }
 
-        var shippingInfo = {
-            'address': null,
-            'city': null,
-            'state': null,
-            'zipcode': null,
-            'pickup_time': null,
-            'pickup_type': null,
-        }
-
         
         var pickupInfo = {
             'pickup_time': null,
@@ -133,11 +106,6 @@
         
 
         if (shipping != 'False') {
-            shippingInfo.address = form.address.value
-            shippingInfo.city = form.city.value
-            shippingInfo.state = form.state.value
-            shippingInfo.zipcode = form.zipcode.value
-
             pickupInfo.pickup_time = form.pickup_time.value
             pickupInfo.pickup_type = form.pickup_type.value
         }
@@ -156,7 +124,8 @@
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
-            body: JSON.stringify({ 'form': userFormData, 'shipping': shippingInfo, 'pickup': pickupInfo })
+            body: JSON.stringify({ 'form': userFormData, 'pickup': pickupInfo })
+
         })
             .then((response) => response.json())
             .then((data) => {
